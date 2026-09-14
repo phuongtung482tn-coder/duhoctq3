@@ -124,10 +124,26 @@ const PAINS = [
 ];
 
 const STEPS = [
-  { n: "01", t: "Đăng ký & tư vấn 1:1", d: "Điền form, chuyên viên gọi lại trong 30 phút, gửi lộ trình chi tiết." },
-  { n: "02", t: "Chọn ngành & xét hồ sơ", d: "Chọn 1 trong 8 ngành hot, hoàn thiện hồ sơ theo hướng dẫn từng bước." },
-  { n: "03", t: "Học tiếng Hán & định hướng", d: "Đào tạo tiếng Hán nền tảng và kỹ năng trước khi bay." },
-  { n: "04", t: "Nhập học & bắt đầu kiếm tiền", d: "Sang trường đối tác, học nghề và làm việc có lương ngay từ kỳ đầu." },
+  {
+    n: "01",
+    t: "Đăng ký & tư vấn 1:1",
+    d: "Điền form, chuyên viên gọi lại trong 30 phút, gửi lộ trình chi tiết.",
+  },
+  {
+    n: "02",
+    t: "Chọn ngành & xét hồ sơ",
+    d: "Chọn 1 trong 8 ngành hot, hoàn thiện hồ sơ theo hướng dẫn từng bước.",
+  },
+  {
+    n: "03",
+    t: "Học tiếng Hán & định hướng",
+    d: "Đào tạo tiếng Hán nền tảng và kỹ năng trước khi bay.",
+  },
+  {
+    n: "04",
+    t: "Nhập học & bắt đầu kiếm tiền",
+    d: "Sang trường đối tác, học nghề và làm việc có lương ngay từ kỳ đầu.",
+  },
 ];
 
 const GALLERY = [
@@ -143,21 +159,24 @@ const EXPERTS = [
     name: "Ths. Nguyễn Thu Hương",
     role: "Chuyên gia định hướng ngành học",
     bio: "Tập trung đánh giá năng lực, sở thích và mục tiêu dài hạn để giúp học viên chọn ngành phù hợp.",
-    experience: "Kinh nghiệm tư vấn lộ trình học nghề quốc tế và định hướng nghề nghiệp sau tốt nghiệp.",
+    experience:
+      "Kinh nghiệm tư vấn lộ trình học nghề quốc tế và định hướng nghề nghiệp sau tốt nghiệp.",
   },
   {
     img: expert2,
     name: "Ông Lê Quang Vinh",
     role: "Chuyên gia hồ sơ & tuyển sinh",
     bio: "Đồng hành cùng học viên từ bước rà soát điều kiện đến hoàn thiện hồ sơ nhập học và visa.",
-    experience: "Kinh nghiệm xử lý hồ sơ tuyển sinh, thủ tục du học và chuẩn bị trước khi xuất cảnh.",
+    experience:
+      "Kinh nghiệm xử lý hồ sơ tuyển sinh, thủ tục du học và chuẩn bị trước khi xuất cảnh.",
   },
   {
     img: expert3,
     name: "Cô Phạm Minh Anh",
     role: "Chuyên gia đồng hành học viên",
     bio: "Hỗ trợ học viên chuẩn bị ngôn ngữ, kỹ năng thích nghi và kế hoạch học tập tại Trung Quốc.",
-    experience: "Kinh nghiệm đào tạo kỹ năng tiền du học và hỗ trợ học viên trong quá trình hòa nhập.",
+    experience:
+      "Kinh nghiệm đào tạo kỹ năng tiền du học và hỗ trợ học viên trong quá trình hòa nhập.",
   },
 ];
 
@@ -191,7 +210,8 @@ function Landing() {
 
   const hotlineHref = FOOTER.hotline ? `tel:${FOOTER.hotline.replace(/\s+/g, "")}` : "#dang-ky";
   const zaloHref =
-    FOOTER.zalo || (FOOTER.hotline ? `https://zalo.me/${FOOTER.hotline.replace(/\D/g, "")}` : "#dang-ky");
+    FOOTER.zalo ||
+    (FOOTER.hotline ? `https://zalo.me/${FOOTER.hotline.replace(/\D/g, "")}` : "#dang-ky");
   const zaloExternal = Boolean(FOOTER.zalo || FOOTER.hotline);
 
   return (
@@ -202,7 +222,8 @@ function Landing() {
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <span className="text-sm font-extrabold leading-tight sm:text-base">
-            Trung tâm Hướng nghiệp &amp;<br className="sm:hidden" /> Phát triển Sự nghiệp Quốc tế
+            Trung tâm Hướng nghiệp &amp;
+            <br className="sm:hidden" /> Phát triển Sự nghiệp Quốc tế
           </span>
           <a
             href="#dang-ky"
@@ -322,7 +343,8 @@ function Landing() {
           8 ngành nghề phát triển trong 5-20 năm tới
         </h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Các lựa chọn bám sát chuyển dịch công nghệ, sản xuất và thương mại giữa Việt Nam – Trung Quốc.
+          Các lựa chọn bám sát chuyển dịch công nghệ, sản xuất và thương mại giữa Việt Nam – Trung
+          Quốc.
         </p>
         <div className="mt-9 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {MAJORS.map((m, i) => (
@@ -342,7 +364,9 @@ function Landing() {
       {/* Experts */}
       <section className="bg-muted/50 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-2xl font-extrabold sm:text-3xl lg:text-4xl">Đội ngũ chuyên gia tư vấn</h2>
+          <h2 className="text-2xl font-extrabold sm:text-3xl lg:text-4xl">
+            Đội ngũ chuyên gia tư vấn
+          </h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
             Đồng hành từ lúc chọn ngành, chuẩn bị hồ sơ đến khi học viên sẵn sàng nhập học.
           </p>
@@ -415,7 +439,9 @@ function Landing() {
       {/* Steps */}
       <section className="surface-panel py-16 text-surface-foreground sm:py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-2xl font-extrabold sm:text-3xl lg:text-4xl">Lộ trình 4 bước đơn giản</h2>
+          <h2 className="text-2xl font-extrabold sm:text-3xl lg:text-4xl">
+            Lộ trình 4 bước đơn giản
+          </h2>
           <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
               <Reveal key={s.n} delay={i * 90}>
@@ -461,8 +487,8 @@ function Landing() {
             Đổi 30 giây hôm nay cho 5 năm tới của bạn
           </h2>
           <p className="mt-3 text-center text-muted-foreground">
-            Nhận lộ trình chi tiết, danh sách trường và mức lương thực tế theo từng ngành — hoàn toàn
-            0Đ.
+            Nhận lộ trình chi tiết, danh sách trường và mức lương thực tế theo từng ngành — hoàn
+            toàn 0Đ.
           </p>
           <div className="mt-8 space-y-3">
             <ScarcityBar />
@@ -504,8 +530,9 @@ function Landing() {
           <p className="mt-4 text-xs leading-relaxed">
             Đơn vị bảo trợ chuyên môn &amp; tuyển sinh: {FOOTER.sponsor}
             {FOOTER.address ? ` — ${FOOTER.address}` : ""}
-            {FOOTER.licenseNumber ? ` · Giấy phép hoạt động số ${FOOTER.licenseNumber}` : ""}. Chương
-            trình liên kết đào tạo với các trường Cao đẳng nghề và doanh nghiệp tại Trung Quốc.
+            {FOOTER.licenseNumber ? ` · Giấy phép hoạt động số ${FOOTER.licenseNumber}` : ""}.
+            Chương trình liên kết đào tạo với các trường Cao đẳng nghề và doanh nghiệp tại Trung
+            Quốc.
           </p>
           <p className="mt-4 text-xs">© {new Date().getFullYear()} Bản quyền thuộc Trung tâm.</p>
         </div>

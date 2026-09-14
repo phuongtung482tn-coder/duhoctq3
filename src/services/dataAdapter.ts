@@ -16,7 +16,7 @@ const BACKUP_KEY = "funnel_backup_snapshots_v1";
 /** Deep-merge dữ liệu đã lưu lên mặc định để config luôn đủ trường khi nâng cấp. */
 function mergeConfig(base: SiteConfig, override: Partial<SiteConfig> | null): SiteConfig {
   if (!override) return structuredClone(base);
-  const out = structuredClone(base) as Record<string, unknown>;
+  const out = structuredClone(base) as unknown as Record<string, unknown>;
   for (const [k, v] of Object.entries(override)) {
     if (v && typeof v === "object" && !Array.isArray(v) && typeof out[k] === "object") {
       out[k] = { ...(out[k] as object), ...(v as object) };
@@ -24,7 +24,7 @@ function mergeConfig(base: SiteConfig, override: Partial<SiteConfig> | null): Si
       out[k] = v;
     }
   }
-  return out as SiteConfig;
+  return out as unknown as SiteConfig;
 }
 
 function isBrowser() {
@@ -53,7 +53,11 @@ export function saveConfig(config: SiteConfig): void {
     /* ignore */
   }
   // DATABASE MODE: đẩy lên Supabase nếu được cấu hình.
-  if (config.admin.storageMode === "database" && config.admin.supabaseUrl && config.admin.supabaseAnonKey) {
+  if (
+    config.admin.storageMode === "database" &&
+    config.admin.supabaseUrl &&
+    config.admin.supabaseAnonKey
+  ) {
     void syncConfigToSupabase(config);
   }
 }
@@ -113,9 +117,25 @@ export function saveLead(lead: LeadRecord): void {
 
 export function exportLeadsCsv(leads: LeadRecord[]): void {
   if (!isBrowser()) return;
-  const headers = ["at", "name", "phone", "email", "city", "major", "aiScore", "aiRank", "utmSource", "variant"];
+  const headers = [
+    "at",
+    "name",
+    "phone",
+    "email",
+    "city",
+    "major",
+    "aiScore",
+    "aiRank",
+    "utmSource",
+    "variant",
+  ];
   const rows = leads.map((l) =>
-    headers.map((h) => `"${String((l as Record<string, unknown>)[h] ?? "").replace(/"/g, '""')}"`).join(","),
+    headers
+      .map(
+        (h) =>
+          `"${String((l as unknown as Record<string, unknown>)[h] ?? "").replace(/"/g, '""')}"`,
+      )
+      .join(","),
   );
   const csv = [headers.join(","), ...rows].join("\n");
   const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
@@ -140,7 +160,10 @@ export function loadAnalytics(): AnalyticsState {
   const empty: AnalyticsState = { visits: 0, leads: 0, bySource: {}, byVariant: {} };
   if (!isBrowser()) return empty;
   try {
-    return { ...empty, ...(JSON.parse(window.localStorage.getItem(ANALYTICS_KEY) || "{}") as AnalyticsState) };
+    return {
+      ...empty,
+      ...(JSON.parse(window.localStorage.getItem(ANALYTICS_KEY) || "{}") as AnalyticsState),
+    };
   } catch {
     return empty;
   }

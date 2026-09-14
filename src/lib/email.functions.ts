@@ -22,7 +22,12 @@ export const sendLeadEmail = createServerFn({ method: "POST" })
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-      body: JSON.stringify({ from: data.from, to: [data.to], subject: data.subject, text: data.text }),
+      body: JSON.stringify({
+        from: data.from,
+        to: [data.to],
+        subject: data.subject,
+        text: data.text,
+      }),
     });
     if (!res.ok) {
       const detail = await res.text();

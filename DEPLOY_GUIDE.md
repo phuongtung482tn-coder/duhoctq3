@@ -43,9 +43,11 @@ npm run build    # tạo bản build production
 > và để dịch vụ ngoài gửi email thay thế.
 
 1. Build:
+
    ```bash
    npm run build
    ```
+
    Thư mục kết quả nằm ở `dist/` (hoặc `.output/public` tùy cấu hình — kiểm tra log build).
 
 2. **cPanel / DirectAdmin:**

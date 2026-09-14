@@ -1,6 +1,7 @@
 # Roadmap
 
 Hoàn thành:
+
 1. Chân trang lấy hotline/email/đơn vị bảo trợ từ một chỗ cấu hình duy nhất (src/lib/config.ts) — tự ẩn khi chưa có thông tin.
 2. Hai nút liên hệ nổi (gọi hotline + Zalo, pulse) góc dưới phải.
 3. Form: trạng thái "Đang gửi...", toast + màn hình thành công, reset form, validation SĐT/email.
@@ -19,5 +20,6 @@ Hoàn thành:
 15. Bổ sung hồ sơ chuyên môn cho từng chuyên gia; viết lại 8 ngành theo triển vọng 5-20 năm, không hiển thị lương cụ thể trên thẻ ngành.
 
 Còn chờ thông tin thật từ user:
+
 - Webhook URL Make.com, ID pixel Facebook/TikTok/Google.
 - Hotline, email, số Zalo, tên/địa chỉ/giấy phép đơn vị bảo trợ gốc.

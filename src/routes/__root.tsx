@@ -136,7 +136,6 @@ gtag('js', new Date());
   errorComponent: ErrorComponent,
 });
 
-
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">

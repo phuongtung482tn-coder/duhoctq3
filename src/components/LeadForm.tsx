@@ -150,8 +150,9 @@ export function LeadForm({ id = "dang-ky" }: { id?: string }) {
   const startedRef = useRef(false);
   const honeypotRef = useRef<HTMLInputElement>(null);
 
-  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
-    setForm((f) => ({ ...f, [k]: e.target.value }));
+  const set =
+    (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+      setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const setMajor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     markIndustrySwitch();
