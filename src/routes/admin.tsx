@@ -67,7 +67,8 @@ function AdminLoginPage() {
               Đăng nhập
             </button>
             <p className="text-center text-[11px] text-white/40">
-              Mật khẩu mặc định có thể đổi trong file <code className="text-white/60">src/config/site-config.ts</code>
+              Mật khẩu mặc định có thể đổi trong file{" "}
+              <code className="text-white/60">src/config/site-config.ts</code>
             </p>
           </form>
         )}

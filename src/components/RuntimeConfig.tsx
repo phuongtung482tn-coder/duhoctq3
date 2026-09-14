@@ -108,7 +108,8 @@ export function RuntimeConfig() {
     const root = document.documentElement;
     if (config.theme.primary) root.style.setProperty("--primary", config.theme.primary);
     if (config.theme.gold) root.style.setProperty("--gold", config.theme.gold);
-    if (config.theme.fontBody) root.style.setProperty("--font-sans", `"${config.theme.fontBody}", system-ui, sans-serif`);
+    if (config.theme.fontBody)
+      root.style.setProperty("--font-sans", `"${config.theme.fontBody}", system-ui, sans-serif`);
   }, [config.theme.primary, config.theme.gold, config.theme.fontBody]);
 
   // Analytics: ghi nhận 1 lượt truy cập/phiên + gán biến thể A/B

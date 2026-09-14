@@ -52,7 +52,10 @@ export function FooterStats() {
     >
       <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((it) => (
-          <div key={it.label} className="rounded-xl bg-background/70 px-3.5 py-3 ring-1 ring-border/70">
+          <div
+            key={it.label}
+            className="rounded-xl bg-background/70 px-3.5 py-3 ring-1 ring-border/70"
+          >
             <dt className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               <span aria-hidden="true">{it.icon}</span>
               {it.label}

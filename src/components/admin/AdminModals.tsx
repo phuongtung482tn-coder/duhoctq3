@@ -27,21 +27,36 @@ function FomoModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const f = config.fomo;
   return (
-    <AdminModal title="Thông Báo FOMO" subtitle="Popup 'khách vừa đăng ký' kích thích tâm lý đám đông" onClose={onClose}>
-      <Toggle checked={f.enabled} onChange={(v) => update((d) => (d.fomo.enabled = v))} label="Bật thông báo FOMO" />
+    <AdminModal
+      title="Thông Báo FOMO"
+      subtitle="Popup 'khách vừa đăng ký' kích thích tâm lý đám đông"
+      onClose={onClose}
+    >
+      <Toggle
+        checked={f.enabled}
+        onChange={(v) => update((d) => (d.fomo.enabled = v))}
+        label="Bật thông báo FOMO"
+      />
       <Field label="Mẫu nội dung" hint="Dùng {name}, {city}, {mins}">
-        <TextInput value={f.template} onChange={(e) => update((d) => (d.fomo.template = e.target.value))} />
+        <TextInput
+          value={f.template}
+          onChange={(e) => update((d) => (d.fomo.template = e.target.value))}
+        />
       </Field>
       <Field label="Danh sách tên khách (mỗi dòng 1 tên)">
         <TextArea
           value={f.names.join("\n")}
-          onChange={(e) => update((d) => (d.fomo.names = e.target.value.split("\n").filter(Boolean)))}
+          onChange={(e) =>
+            update((d) => (d.fomo.names = e.target.value.split("\n").filter(Boolean)))
+          }
         />
       </Field>
       <Field label="Danh sách tỉnh/thành (mỗi dòng 1 địa danh)">
         <TextArea
           value={f.cities.join("\n")}
-          onChange={(e) => update((d) => (d.fomo.cities = e.target.value.split("\n").filter(Boolean)))}
+          onChange={(e) =>
+            update((d) => (d.fomo.cities = e.target.value.split("\n").filter(Boolean)))
+          }
         />
       </Field>
       <div className="grid grid-cols-3 gap-2">
@@ -74,7 +89,9 @@ function FomoModal({ onClose }: ModalProps) {
               key={p}
               onClick={() => update((d) => (d.fomo.position = p))}
               className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${
-                f.position === p ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300"
+                f.position === p
+                  ? "border-neutral-900 bg-neutral-900 text-white"
+                  : "border-neutral-300"
               }`}
             >
               {p === "left" ? "Góc trái" : "Góc phải"}
@@ -92,18 +109,34 @@ function FormModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const form = config.form;
   return (
-    <AdminModal title="Form & Webhook" subtitle="Tùy chỉnh nội dung form và kết nối gửi lead" onClose={onClose}>
+    <AdminModal
+      title="Form & Webhook"
+      subtitle="Tùy chỉnh nội dung form và kết nối gửi lead"
+      onClose={onClose}
+    >
       <Field label="Tiêu đề form">
-        <TextInput value={form.headline} onChange={(e) => update((d) => (d.form.headline = e.target.value))} />
+        <TextInput
+          value={form.headline}
+          onChange={(e) => update((d) => (d.form.headline = e.target.value))}
+        />
       </Field>
       <Field label="Chữ trên nút CTA">
-        <TextInput value={form.ctaLabel} onChange={(e) => update((d) => (d.form.ctaLabel = e.target.value))} />
+        <TextInput
+          value={form.ctaLabel}
+          onChange={(e) => update((d) => (d.form.ctaLabel = e.target.value))}
+        />
       </Field>
       <Field label="Webhook URL (Make/Zapier)" hint="Giữ nguyên URL đang chạy để không đứt kết nối">
-        <TextInput value={form.webhookUrl} onChange={(e) => update((d) => (d.form.webhookUrl = e.target.value))} />
+        <TextInput
+          value={form.webhookUrl}
+          onChange={(e) => update((d) => (d.form.webhookUrl = e.target.value))}
+        />
       </Field>
       <Field label="Redirect sau khi gửi (tùy chọn)">
-        <TextInput value={form.redirectUrl} onChange={(e) => update((d) => (d.form.redirectUrl = e.target.value))} />
+        <TextInput
+          value={form.redirectUrl}
+          onChange={(e) => update((d) => (d.form.redirectUrl = e.target.value))}
+        />
       </Field>
       <div className="grid grid-cols-2 gap-2">
         <Field label="Giới hạn số lần gửi">
@@ -123,15 +156,18 @@ function FormModal({ onClose }: ModalProps) {
       </div>
       <p className="mb-2 text-xs font-semibold text-neutral-700">Nhãn & placeholder các trường</p>
       {form.fields.map((field, i) => (
-        <div key={field.name} className="mb-2 grid grid-cols-2 gap-2 rounded-lg border border-neutral-200 p-2">
+        <div
+          key={field.name}
+          className="mb-2 grid grid-cols-2 gap-2 rounded-lg border border-neutral-200 p-2"
+        >
           <TextInput
             value={field.label}
-            onChange={(e) => update((d) => (d.form.fields[i].label = e.target.value))}
+            onChange={(e) => update((d) => (d.form.fields[i]!.label = e.target.value))}
             placeholder="Label"
           />
           <TextInput
             value={field.placeholder}
-            onChange={(e) => update((d) => (d.form.fields[i].placeholder = e.target.value))}
+            onChange={(e) => update((d) => (d.form.fields[i]!.placeholder = e.target.value))}
             placeholder="Placeholder"
           />
         </div>
@@ -159,7 +195,10 @@ function ThemeModal({ onClose }: ModalProps) {
               onChange={(e) => update((d) => (d.theme.primary = e.target.value))}
               className="h-9 w-12 rounded border border-neutral-300"
             />
-            <TextInput value={t.primary} onChange={(e) => update((d) => (d.theme.primary = e.target.value))} />
+            <TextInput
+              value={t.primary}
+              onChange={(e) => update((d) => (d.theme.primary = e.target.value))}
+            />
           </div>
         </Field>
         <Field label="Màu nhấn (gold)">
@@ -170,15 +209,24 @@ function ThemeModal({ onClose }: ModalProps) {
               onChange={(e) => update((d) => (d.theme.gold = e.target.value))}
               className="h-9 w-12 rounded border border-neutral-300"
             />
-            <TextInput value={t.gold} onChange={(e) => update((d) => (d.theme.gold = e.target.value))} />
+            <TextInput
+              value={t.gold}
+              onChange={(e) => update((d) => (d.theme.gold = e.target.value))}
+            />
           </div>
         </Field>
       </div>
       <Field label="Font tiêu đề">
-        <TextInput value={t.fontHeading} onChange={(e) => update((d) => (d.theme.fontHeading = e.target.value))} />
+        <TextInput
+          value={t.fontHeading}
+          onChange={(e) => update((d) => (d.theme.fontHeading = e.target.value))}
+        />
       </Field>
       <Field label="Font nội dung">
-        <TextInput value={t.fontBody} onChange={(e) => update((d) => (d.theme.fontBody = e.target.value))} />
+        <TextInput
+          value={t.fontBody}
+          onChange={(e) => update((d) => (d.theme.fontBody = e.target.value))}
+        />
       </Field>
       <SaveHint />
     </AdminModal>
@@ -190,8 +238,16 @@ function CountdownModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const c = config.countdown;
   return (
-    <AdminModal title="Đồng Hồ Đếm Ngược" subtitle="Tạo cảm giác khan hiếm & khẩn cấp" onClose={onClose}>
-      <Toggle checked={c.enabled} onChange={(v) => update((d) => (d.countdown.enabled = v))} label="Bật countdown" />
+    <AdminModal
+      title="Đồng Hồ Đếm Ngược"
+      subtitle="Tạo cảm giác khan hiếm & khẩn cấp"
+      onClose={onClose}
+    >
+      <Toggle
+        checked={c.enabled}
+        onChange={(v) => update((d) => (d.countdown.enabled = v))}
+        label="Bật countdown"
+      />
       <Field label="Số suất còn lại">
         <TextInput
           type="number"
@@ -200,7 +256,10 @@ function CountdownModal({ onClose }: ModalProps) {
         />
       </Field>
       <Field label="Dòng chữ mô tả">
-        <TextInput value={c.headline} onChange={(e) => update((d) => (d.countdown.headline = e.target.value))} />
+        <TextInput
+          value={c.headline}
+          onChange={(e) => update((d) => (d.countdown.headline = e.target.value))}
+        />
       </Field>
       <Field label="Mốc kết thúc">
         <div className="flex gap-2">
@@ -209,7 +268,9 @@ function CountdownModal({ onClose }: ModalProps) {
               key={m}
               onClick={() => update((d) => (d.countdown.endMode = m))}
               className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${
-                c.endMode === m ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300"
+                c.endMode === m
+                  ? "border-neutral-900 bg-neutral-900 text-white"
+                  : "border-neutral-300"
               }`}
             >
               {m === "endOfMonth" ? "Cuối tháng" : "Ngày cố định"}
@@ -236,16 +297,33 @@ function ContactModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const c = config.floatingContact;
   return (
-    <AdminModal title="Hotline & Zalo" subtitle="Nút liên hệ nổi + thanh CTA mobile" onClose={onClose}>
-      <Toggle checked={c.enabled} onChange={(v) => update((d) => (d.floatingContact.enabled = v))} label="Bật nút liên hệ nổi" />
+    <AdminModal
+      title="Hotline & Zalo"
+      subtitle="Nút liên hệ nổi + thanh CTA mobile"
+      onClose={onClose}
+    >
+      <Toggle
+        checked={c.enabled}
+        onChange={(v) => update((d) => (d.floatingContact.enabled = v))}
+        label="Bật nút liên hệ nổi"
+      />
       <Field label="Số hotline">
-        <TextInput value={c.hotline} onChange={(e) => update((d) => (d.floatingContact.hotline = e.target.value))} />
+        <TextInput
+          value={c.hotline}
+          onChange={(e) => update((d) => (d.floatingContact.hotline = e.target.value))}
+        />
       </Field>
       <Field label="Link Zalo">
-        <TextInput value={c.zalo} onChange={(e) => update((d) => (d.floatingContact.zalo = e.target.value))} />
+        <TextInput
+          value={c.zalo}
+          onChange={(e) => update((d) => (d.floatingContact.zalo = e.target.value))}
+        />
       </Field>
       <Field label="Link Messenger (tùy chọn)">
-        <TextInput value={c.messenger} onChange={(e) => update((d) => (d.floatingContact.messenger = e.target.value))} />
+        <TextInput
+          value={c.messenger}
+          onChange={(e) => update((d) => (d.floatingContact.messenger = e.target.value))}
+        />
       </Field>
       <SaveHint />
     </AdminModal>
@@ -259,21 +337,45 @@ function PixelModal({ onClose }: ModalProps) {
   return (
     <AdminModal title="Pixel & Sự Kiện Ads" subtitle="Facebook, TikTok, GA4, GTM" onClose={onClose}>
       <Field label="Facebook Pixel ID">
-        <TextInput value={t.facebookPixelId} onChange={(e) => update((d) => (d.tracking.facebookPixelId = e.target.value))} />
+        <TextInput
+          value={t.facebookPixelId}
+          onChange={(e) => update((d) => (d.tracking.facebookPixelId = e.target.value))}
+        />
       </Field>
       <Field label="TikTok Pixel ID">
-        <TextInput value={t.tiktokPixelId} onChange={(e) => update((d) => (d.tracking.tiktokPixelId = e.target.value))} />
+        <TextInput
+          value={t.tiktokPixelId}
+          onChange={(e) => update((d) => (d.tracking.tiktokPixelId = e.target.value))}
+        />
       </Field>
       <Field label="GA4 Measurement ID">
-        <TextInput value={t.ga4Id} onChange={(e) => update((d) => (d.tracking.ga4Id = e.target.value))} />
+        <TextInput
+          value={t.ga4Id}
+          onChange={(e) => update((d) => (d.tracking.ga4Id = e.target.value))}
+        />
       </Field>
       <Field label="Google Tag Manager ID">
-        <TextInput value={t.gtmId} onChange={(e) => update((d) => (d.tracking.gtmId = e.target.value))} />
+        <TextInput
+          value={t.gtmId}
+          onChange={(e) => update((d) => (d.tracking.gtmId = e.target.value))}
+        />
       </Field>
       <p className="mb-2 text-xs font-semibold text-neutral-700">Bật/tắt sự kiện chuyển đổi</p>
-      <Toggle checked={t.events.pageView} onChange={(v) => update((d) => (d.tracking.events.pageView = v))} label="PageView" />
-      <Toggle checked={t.events.formStart} onChange={(v) => update((d) => (d.tracking.events.formStart = v))} label="Form Start" />
-      <Toggle checked={t.events.lead} onChange={(v) => update((d) => (d.tracking.events.lead = v))} label="Lead" />
+      <Toggle
+        checked={t.events.pageView}
+        onChange={(v) => update((d) => (d.tracking.events.pageView = v))}
+        label="PageView"
+      />
+      <Toggle
+        checked={t.events.formStart}
+        onChange={(v) => update((d) => (d.tracking.events.formStart = v))}
+        label="Form Start"
+      />
+      <Toggle
+        checked={t.events.lead}
+        onChange={(v) => update((d) => (d.tracking.events.lead = v))}
+        label="Lead"
+      />
       <Toggle
         checked={t.events.completeRegistration}
         onChange={(v) => update((d) => (d.tracking.events.completeRegistration = v))}
@@ -289,7 +391,11 @@ function WebmasterModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const t = config.tracking;
   return (
-    <AdminModal title="Webmaster & Custom Scripts" subtitle="Xác minh Google + chèn mã tùy chỉnh" onClose={onClose}>
+    <AdminModal
+      title="Webmaster & Custom Scripts"
+      subtitle="Xác minh Google + chèn mã tùy chỉnh"
+      onClose={onClose}
+    >
       <Field label="Google Search Console verification">
         <TextInput
           value={t.googleVerification}
@@ -297,13 +403,22 @@ function WebmasterModal({ onClose }: ModalProps) {
         />
       </Field>
       <Field label="Custom Script — Head">
-        <TextArea value={t.customHead} onChange={(e) => update((d) => (d.tracking.customHead = e.target.value))} />
+        <TextArea
+          value={t.customHead}
+          onChange={(e) => update((d) => (d.tracking.customHead = e.target.value))}
+        />
       </Field>
       <Field label="Custom Script — Body">
-        <TextArea value={t.customBody} onChange={(e) => update((d) => (d.tracking.customBody = e.target.value))} />
+        <TextArea
+          value={t.customBody}
+          onChange={(e) => update((d) => (d.tracking.customBody = e.target.value))}
+        />
       </Field>
       <Field label="Custom Script — Footer">
-        <TextArea value={t.customFooter} onChange={(e) => update((d) => (d.tracking.customFooter = e.target.value))} />
+        <TextArea
+          value={t.customFooter}
+          onChange={(e) => update((d) => (d.tracking.customFooter = e.target.value))}
+        />
       </Field>
       <SaveHint />
     </AdminModal>
@@ -317,19 +432,34 @@ function SeoModal({ onClose }: ModalProps) {
   return (
     <AdminModal title="SEO Google" subtitle="Meta tags & schema" onClose={onClose}>
       <Field label="Meta Title">
-        <TextInput value={s.title} onChange={(e) => update((d) => (d.seo.title = e.target.value))} />
+        <TextInput
+          value={s.title}
+          onChange={(e) => update((d) => (d.seo.title = e.target.value))}
+        />
       </Field>
       <Field label="Meta Description">
-        <TextArea value={s.description} onChange={(e) => update((d) => (d.seo.description = e.target.value))} />
+        <TextArea
+          value={s.description}
+          onChange={(e) => update((d) => (d.seo.description = e.target.value))}
+        />
       </Field>
       <Field label="Keywords">
-        <TextInput value={s.keywords} onChange={(e) => update((d) => (d.seo.keywords = e.target.value))} />
+        <TextInput
+          value={s.keywords}
+          onChange={(e) => update((d) => (d.seo.keywords = e.target.value))}
+        />
       </Field>
       <Field label="OG Image URL">
-        <TextInput value={s.ogImage} onChange={(e) => update((d) => (d.seo.ogImage = e.target.value))} />
+        <TextInput
+          value={s.ogImage}
+          onChange={(e) => update((d) => (d.seo.ogImage = e.target.value))}
+        />
       </Field>
       <Field label="Schema Type">
-        <TextInput value={s.schemaType} onChange={(e) => update((d) => (d.seo.schemaType = e.target.value))} />
+        <TextInput
+          value={s.schemaType}
+          onChange={(e) => update((d) => (d.seo.schemaType = e.target.value))}
+        />
       </Field>
       <SaveHint />
     </AdminModal>
@@ -341,13 +471,27 @@ function AiModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const a = config.aiAdvisor;
   return (
-    <AdminModal title="AI Sales Advisor" subtitle="Ma trận chấm điểm & phân hạng lead" onClose={onClose}>
-      <Toggle checked={a.enabled} onChange={(v) => update((d) => (d.aiAdvisor.enabled = v))} label="Bật gợi ý AI Sales" />
+    <AdminModal
+      title="AI Sales Advisor"
+      subtitle="Ma trận chấm điểm & phân hạng lead"
+      onClose={onClose}
+    >
+      <Toggle
+        checked={a.enabled}
+        onChange={(v) => update((d) => (d.aiAdvisor.enabled = v))}
+        label="Bật gợi ý AI Sales"
+      />
       <Field label="Regex nhận diện thiết bị VIP">
-        <TextInput value={a.vipDeviceRegex} onChange={(e) => update((d) => (d.aiAdvisor.vipDeviceRegex = e.target.value))} />
+        <TextInput
+          value={a.vipDeviceRegex}
+          onChange={(e) => update((d) => (d.aiAdvisor.vipDeviceRegex = e.target.value))}
+        />
       </Field>
       <Field label="Tỉnh trọng điểm (phân tách bằng |)">
-        <TextInput value={a.keyRegions} onChange={(e) => update((d) => (d.aiAdvisor.keyRegions = e.target.value))} />
+        <TextInput
+          value={a.keyRegions}
+          onChange={(e) => update((d) => (d.aiAdvisor.keyRegions = e.target.value))}
+        />
       </Field>
       <div className="grid grid-cols-3 gap-2">
         <Field label="Điền nhanh (<s) = bot">
@@ -382,8 +526,16 @@ function EmailModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const e = config.emailAutomation;
   return (
-    <AdminModal title="Tự Động Hóa Email" subtitle="Gửi email cảm ơn ngay khi có lead" onClose={onClose}>
-      <Toggle checked={e.enabled} onChange={(v) => update((d) => (d.emailAutomation.enabled = v))} label="Bật auto email" />
+    <AdminModal
+      title="Tự Động Hóa Email"
+      subtitle="Gửi email cảm ơn ngay khi có lead"
+      onClose={onClose}
+    >
+      <Toggle
+        checked={e.enabled}
+        onChange={(v) => update((d) => (d.emailAutomation.enabled = v))}
+        label="Bật auto email"
+      />
       <Field label="Nhà cung cấp">
         <div className="flex gap-2">
           {(["resend", "smtp"] as const).map((p) => (
@@ -391,7 +543,9 @@ function EmailModal({ onClose }: ModalProps) {
               key={p}
               onClick={() => update((d) => (d.emailAutomation.provider = p))}
               className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold uppercase ${
-                e.provider === p ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300"
+                e.provider === p
+                  ? "border-neutral-900 bg-neutral-900 text-white"
+                  : "border-neutral-300"
               }`}
             >
               {p}
@@ -400,13 +554,22 @@ function EmailModal({ onClose }: ModalProps) {
         </div>
       </Field>
       <Field label="Email gửi đi (From)">
-        <TextInput value={e.fromEmail} onChange={(ev) => update((d) => (d.emailAutomation.fromEmail = ev.target.value))} />
+        <TextInput
+          value={e.fromEmail}
+          onChange={(ev) => update((d) => (d.emailAutomation.fromEmail = ev.target.value))}
+        />
       </Field>
       <Field label="Tiêu đề" hint="Dùng {name} {phone} {city} {ai_score}">
-        <TextInput value={e.subject} onChange={(ev) => update((d) => (d.emailAutomation.subject = ev.target.value))} />
+        <TextInput
+          value={e.subject}
+          onChange={(ev) => update((d) => (d.emailAutomation.subject = ev.target.value))}
+        />
       </Field>
       <Field label="Nội dung">
-        <TextArea value={e.body} onChange={(ev) => update((d) => (d.emailAutomation.body = ev.target.value))} />
+        <TextArea
+          value={e.body}
+          onChange={(ev) => update((d) => (d.emailAutomation.body = ev.target.value))}
+        />
       </Field>
       <SaveHint />
     </AdminModal>
@@ -418,19 +581,27 @@ function WebhookModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const list = config.webhooks;
   return (
-    <AdminModal title="Cổng Webhook & Đa Kênh" subtitle="Gửi lead tới nhiều nơi cùng lúc" onClose={onClose}>
-      {list.length === 0 && <p className="mb-3 text-xs text-neutral-400">Chưa có endpoint nào. Thêm mới bên dưới.</p>}
+    <AdminModal
+      title="Cổng Webhook & Đa Kênh"
+      subtitle="Gửi lead tới nhiều nơi cùng lúc"
+      onClose={onClose}
+    >
+      {list.length === 0 && (
+        <p className="mb-3 text-xs text-neutral-400">Chưa có endpoint nào. Thêm mới bên dưới.</p>
+      )}
       {list.map((w, i) => (
         <div key={w.id} className="mb-2 rounded-lg border border-neutral-200 p-2">
           <div className="mb-2 flex items-center gap-2">
             <TextInput
               value={w.label}
               placeholder="Tên"
-              onChange={(e) => update((d) => (d.webhooks[i].label = e.target.value))}
+              onChange={(e) => update((d) => (d.webhooks[i]!.label = e.target.value))}
             />
             <select
               value={w.type}
-              onChange={(e) => update((d) => (d.webhooks[i].type = e.target.value as typeof w.type))}
+              onChange={(e) =>
+                update((d) => (d.webhooks[i]!.type = e.target.value as typeof w.type))
+              }
               className="rounded-lg border border-neutral-300 px-2 py-2 text-sm"
             >
               <option value="make">Make/Zapier</option>
@@ -450,10 +621,14 @@ function WebhookModal({ onClose }: ModalProps) {
           <TextInput
             value={w.url}
             placeholder="https://..."
-            onChange={(e) => update((d) => (d.webhooks[i].url = e.target.value))}
+            onChange={(e) => update((d) => (d.webhooks[i]!.url = e.target.value))}
           />
           <div className="mt-2">
-            <Toggle checked={w.enabled} onChange={(v) => update((d) => (d.webhooks[i].enabled = v))} label="Kích hoạt" />
+            <Toggle
+              checked={w.enabled}
+              onChange={(v) => update((d) => (d.webhooks[i]!.enabled = v))}
+              label="Kích hoạt"
+            />
           </div>
         </div>
       ))}
@@ -484,7 +659,11 @@ function AnalyticsModal({ onClose }: ModalProps) {
   useEffect(() => setA(loadAnalytics()), []);
   const cr = a && a.visits > 0 ? ((a.leads / a.visits) * 100).toFixed(1) : "0.0";
   return (
-    <AdminModal title="Thống Kê & Analytics" subtitle="Số liệu thời gian thực (local)" onClose={onClose}>
+    <AdminModal
+      title="Thống Kê & Analytics"
+      subtitle="Số liệu thời gian thực (local)"
+      onClose={onClose}
+    >
       <div className="grid grid-cols-3 gap-2">
         <Stat label="Lượt truy cập" value={a?.visits ?? 0} />
         <Stat label="Lượt đăng ký" value={a?.leads ?? 0} tone="text-emerald-600" />
@@ -494,7 +673,10 @@ function AnalyticsModal({ onClose }: ModalProps) {
       <div className="space-y-1">
         {a && Object.keys(a.bySource).length > 0 ? (
           Object.entries(a.bySource).map(([s, n]) => (
-            <div key={s} className="flex justify-between rounded-lg bg-neutral-100 px-3 py-1.5 text-xs dark:bg-white/5">
+            <div
+              key={s}
+              className="flex justify-between rounded-lg bg-neutral-100 px-3 py-1.5 text-xs dark:bg-white/5"
+            >
               <span className="font-medium">{s}</span>
               <span className="tabular-nums">{n}</span>
             </div>
@@ -507,7 +689,10 @@ function AnalyticsModal({ onClose }: ModalProps) {
       {a && Object.keys(a.byVariant).length > 0 ? (
         <div className="grid grid-cols-2 gap-2">
           {Object.entries(a.byVariant).map(([v, s]) => (
-            <div key={v} className="rounded-lg border border-neutral-200 p-2 text-xs dark:border-white/10">
+            <div
+              key={v}
+              className="rounded-lg border border-neutral-200 p-2 text-xs dark:border-white/10"
+            >
               <div className="font-bold">{v}</div>
               <div>Visits: {s.visits}</div>
               <div>Leads: {s.leads}</div>
@@ -527,7 +712,11 @@ function LeadsModal({ onClose }: ModalProps) {
   const [leads, setLeads] = useState<LeadRecord[]>([]);
   useEffect(() => setLeads(loadLeads()), []);
   return (
-    <AdminModal title="Quản Lý Lead (Mini-CRM)" subtitle={`${leads.length} lead đã ghi nhận`} onClose={onClose}>
+    <AdminModal
+      title="Quản Lý Lead (Mini-CRM)"
+      subtitle={`${leads.length} lead đã ghi nhận`}
+      onClose={onClose}
+    >
       <button
         onClick={() => exportLeadsCsv(leads)}
         disabled={leads.length === 0}
@@ -536,14 +725,23 @@ function LeadsModal({ onClose }: ModalProps) {
         <Download className="h-3.5 w-3.5" /> Xuất CSV/Excel
       </button>
       {leads.length === 0 ? (
-        <p className="text-xs text-neutral-400">Chưa có lead nào. Lead sẽ xuất hiện tại đây sau khi khách gửi form.</p>
+        <p className="text-xs text-neutral-400">
+          Chưa có lead nào. Lead sẽ xuất hiện tại đây sau khi khách gửi form.
+        </p>
       ) : (
         <div className="space-y-2">
           {leads.map((l) => (
-            <div key={l.id} className="rounded-lg border border-neutral-200 p-2.5 text-xs dark:border-white/10">
+            <div
+              key={l.id}
+              className="rounded-lg border border-neutral-200 p-2.5 text-xs dark:border-white/10"
+            >
               <div className="flex justify-between">
                 <span className="font-bold">{l.name}</span>
-                {l.aiRank && <span className="rounded bg-amber-100 px-1.5 text-[10px] font-bold text-amber-700">{l.aiRank}</span>}
+                {l.aiRank && (
+                  <span className="rounded bg-amber-100 px-1.5 text-[10px] font-bold text-amber-700">
+                    {l.aiRank}
+                  </span>
+                )}
               </div>
               <div className="text-neutral-500">
                 {l.phone} · {l.city} · {l.major}
@@ -565,7 +763,11 @@ function StorageModal({ onClose }: ModalProps) {
   const a = config.admin;
   const [testing, setTesting] = useState<null | boolean>(null);
   return (
-    <AdminModal title="Storage Mode" subtitle="Local (mặc định) hoặc Supabase Cloud" onClose={onClose}>
+    <AdminModal
+      title="Storage Mode"
+      subtitle="Local (mặc định) hoặc Supabase Cloud"
+      onClose={onClose}
+    >
       <Field label="Chế độ lưu trữ">
         <div className="flex gap-2">
           {(["local", "database"] as const).map((m) => (
@@ -573,7 +775,9 @@ function StorageModal({ onClose }: ModalProps) {
               key={m}
               onClick={() => update((d) => (d.admin.storageMode = m))}
               className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${
-                a.storageMode === m ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300"
+                a.storageMode === m
+                  ? "border-neutral-900 bg-neutral-900 text-white"
+                  : "border-neutral-300"
               }`}
             >
               {m === "local" ? "Local (localStorage)" : "Database (Supabase)"}
@@ -584,10 +788,16 @@ function StorageModal({ onClose }: ModalProps) {
       {a.storageMode === "database" && (
         <>
           <Field label="Supabase URL">
-            <TextInput value={a.supabaseUrl} onChange={(e) => update((d) => (d.admin.supabaseUrl = e.target.value))} />
+            <TextInput
+              value={a.supabaseUrl}
+              onChange={(e) => update((d) => (d.admin.supabaseUrl = e.target.value))}
+            />
           </Field>
           <Field label="Supabase Anon Key">
-            <TextInput value={a.supabaseAnonKey} onChange={(e) => update((d) => (d.admin.supabaseAnonKey = e.target.value))} />
+            <TextInput
+              value={a.supabaseAnonKey}
+              onChange={(e) => update((d) => (d.admin.supabaseAnonKey = e.target.value))}
+            />
           </Field>
           <button
             onClick={async () => {
@@ -615,16 +825,26 @@ function AdminLinkModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const a = config.admin;
   return (
-    <AdminModal title="Đổi Link & Mật Khẩu Admin" subtitle="Bảo mật trang quản trị" onClose={onClose}>
+    <AdminModal
+      title="Đổi Link & Mật Khẩu Admin"
+      subtitle="Bảo mật trang quản trị"
+      onClose={onClose}
+    >
       <Field label="Đường dẫn admin" hint="Truy cập tại /<đường-dẫn>">
-        <TextInput value={a.adminPath} onChange={(e) => update((d) => (d.admin.adminPath = e.target.value))} />
+        <TextInput
+          value={a.adminPath}
+          onChange={(e) => update((d) => (d.admin.adminPath = e.target.value))}
+        />
       </Field>
       <Field label="Mật khẩu quản trị">
-        <TextInput value={a.password} onChange={(e) => update((d) => (d.admin.password = e.target.value))} />
+        <TextInput
+          value={a.password}
+          onChange={(e) => update((d) => (d.admin.password = e.target.value))}
+        />
       </Field>
       <p className="text-[11px] text-neutral-400">
-        Lưu ý: đây là mật khẩu phía client cho tiện chỉnh sửa nhanh. Với dữ liệu nhạy cảm hãy dùng Supabase Row Level
-        Security.
+        Lưu ý: đây là mật khẩu phía client cho tiện chỉnh sửa nhanh. Với dữ liệu nhạy cảm hãy dùng
+        Supabase Row Level Security.
       </p>
       <SaveHint />
     </AdminModal>
@@ -636,8 +856,16 @@ function AbTestModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const ab = config.abTest;
   return (
-    <AdminModal title="A/B Split Testing" subtitle="Phân phối traffic giữa 2 biến thể" onClose={onClose}>
-      <Toggle checked={ab.enabled} onChange={(v) => update((d) => (d.abTest.enabled = v))} label="Bật A/B testing" />
+    <AdminModal
+      title="A/B Split Testing"
+      subtitle="Phân phối traffic giữa 2 biến thể"
+      onClose={onClose}
+    >
+      <Toggle
+        checked={ab.enabled}
+        onChange={(v) => update((d) => (d.abTest.enabled = v))}
+        label="Bật A/B testing"
+      />
       <Field label={`% traffic vào Variant B: ${ab.split}%`}>
         <input
           type="range"
@@ -650,10 +878,16 @@ function AbTestModal({ onClose }: ModalProps) {
       </Field>
       <div className="grid grid-cols-2 gap-2">
         <Field label="Nhãn Variant A">
-          <TextInput value={ab.variantALabel} onChange={(e) => update((d) => (d.abTest.variantALabel = e.target.value))} />
+          <TextInput
+            value={ab.variantALabel}
+            onChange={(e) => update((d) => (d.abTest.variantALabel = e.target.value))}
+          />
         </Field>
         <Field label="Nhãn Variant B">
-          <TextInput value={ab.variantBLabel} onChange={(e) => update((d) => (d.abTest.variantBLabel = e.target.value))} />
+          <TextInput
+            value={ab.variantBLabel}
+            onChange={(e) => update((d) => (d.abTest.variantBLabel = e.target.value))}
+          />
         </Field>
       </div>
       <SaveHint />
@@ -666,9 +900,16 @@ function CronModal({ onClose }: ModalProps) {
   const { config, update } = useSiteConfig();
   const a = config.admin;
   return (
-    <AdminModal title="Cloud Cron & Backup" subtitle="Gửi backup .json định kỳ qua email" onClose={onClose}>
+    <AdminModal
+      title="Cloud Cron & Backup"
+      subtitle="Gửi backup .json định kỳ qua email"
+      onClose={onClose}
+    >
       <Field label="Email nhận backup">
-        <TextInput value={a.backupEmail} onChange={(e) => update((d) => (d.admin.backupEmail = e.target.value))} />
+        <TextInput
+          value={a.backupEmail}
+          onChange={(e) => update((d) => (d.admin.backupEmail = e.target.value))}
+        />
       </Field>
       <Field label="Lịch chạy">
         <div className="flex gap-2">
@@ -677,7 +918,9 @@ function CronModal({ onClose }: ModalProps) {
               key={s}
               onClick={() => update((d) => (d.admin.cronSchedule = s))}
               className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${
-                a.cronSchedule === s ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300"
+                a.cronSchedule === s
+                  ? "border-neutral-900 bg-neutral-900 text-white"
+                  : "border-neutral-300"
               }`}
             >
               {s === "off" ? "Tắt" : s === "daily" ? "Hàng ngày" : "Hàng tuần"}
@@ -686,8 +929,8 @@ function CronModal({ onClose }: ModalProps) {
         </div>
       </Field>
       <p className="text-[11px] text-neutral-400">
-        Cron chạy phía Supabase Edge Function / cron-job.org khi ở Database Mode. Ở Local Mode, mỗi lần LƯU sẽ tạo snapshot
-        backup tự động (giữ 10 bản gần nhất).
+        Cron chạy phía Supabase Edge Function / cron-job.org khi ở Database Mode. Ở Local Mode, mỗi
+        lần LƯU sẽ tạo snapshot backup tự động (giữ 10 bản gần nhất).
       </p>
       <SaveHint />
     </AdminModal>
@@ -705,7 +948,10 @@ function InfoModal({
     <AdminModal title={title} subtitle={subtitle} onClose={onClose}>
       <ul className="space-y-2">
         {points.map((p) => (
-          <li key={p} className="flex gap-2 rounded-lg bg-neutral-100 px-3 py-2 text-xs text-neutral-700 dark:bg-white/5 dark:text-neutral-200">
+          <li
+            key={p}
+            className="flex gap-2 rounded-lg bg-neutral-100 px-3 py-2 text-xs text-neutral-700 dark:bg-white/5 dark:text-neutral-200"
+          >
             <span className="text-emerald-500">✓</span>
             {p}
           </li>
@@ -718,19 +964,34 @@ function InfoModal({
 function GuideModal({ onClose }: ModalProps) {
   const { config } = useSiteConfig();
   const checks = [
-    { label: "Webhook đã cấu hình", ok: config.form.webhookUrl.includes("http") && !config.form.webhookUrl.includes("REPLACE") },
+    {
+      label: "Webhook đã cấu hình",
+      ok: config.form.webhookUrl.includes("http") && !config.form.webhookUrl.includes("REPLACE"),
+    },
     { label: "TikTok Pixel", ok: !!config.tracking.tiktokPixelId },
     { label: "SEO title & description", ok: !!config.seo.title && !!config.seo.description },
     { label: "Hotline/Zalo", ok: !!config.floatingContact.hotline },
-    { label: "Storage mode", ok: config.admin.storageMode === "local" || !!config.admin.supabaseUrl },
+    {
+      label: "Storage mode",
+      ok: config.admin.storageMode === "local" || !!config.admin.supabaseUrl,
+    },
   ];
   return (
-    <AdminModal title="Hướng Dẫn & Health Check" subtitle="Chẩn đoán nhanh trạng thái hệ thống" onClose={onClose}>
+    <AdminModal
+      title="Hướng Dẫn & Health Check"
+      subtitle="Chẩn đoán nhanh trạng thái hệ thống"
+      onClose={onClose}
+    >
       <div className="mb-4 space-y-1.5">
         {checks.map((c) => (
-          <div key={c.label} className="flex items-center justify-between rounded-lg border border-neutral-200 px-3 py-2 text-xs dark:border-white/10">
+          <div
+            key={c.label}
+            className="flex items-center justify-between rounded-lg border border-neutral-200 px-3 py-2 text-xs dark:border-white/10"
+          >
             <span>{c.label}</span>
-            <span className={c.ok ? "font-bold text-emerald-600" : "font-bold text-amber-600"}>{c.ok ? "OK" : "Cần cấu hình"}</span>
+            <span className={c.ok ? "font-bold text-emerald-600" : "font-bold text-amber-600"}>
+              {c.ok ? "OK" : "Cần cấu hình"}
+            </span>
           </div>
         ))}
       </div>

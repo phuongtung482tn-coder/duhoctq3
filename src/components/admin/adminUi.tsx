@@ -35,10 +35,20 @@ export function AdminModal({
   );
 }
 
-export function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) {
+export function Field({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: ReactNode;
+}) {
   return (
     <label className="mb-3 block">
-      <span className="mb-1 block text-xs font-semibold text-neutral-700 dark:text-neutral-300">{label}</span>
+      <span className="mb-1 block text-xs font-semibold text-neutral-700 dark:text-neutral-300">
+        {label}
+      </span>
       {children}
       {hint && <span className="mt-1 block text-[11px] text-neutral-400">{hint}</span>}
     </label>
@@ -87,7 +97,15 @@ export function Toggle({
   );
 }
 
-export function Stat({ label, value, tone }: { label: string; value: string | number; tone?: string }) {
+export function Stat({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string | number;
+  tone?: string;
+}) {
   return (
     <div className="rounded-xl border border-neutral-200 p-3 dark:border-white/10">
       <div className={`text-2xl font-black tabular-nums ${tone ?? ""}`}>{value}</div>

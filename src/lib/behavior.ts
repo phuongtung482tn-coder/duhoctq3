@@ -130,8 +130,8 @@ export function isHeadless() {
   const nav = navigator as Navigator & { webdriver?: boolean };
   return Boolean(
     nav.webdriver ||
-      /HeadlessChrome|Puppeteer|Playwright|PhantomJS/i.test(navigator.userAgent) ||
-      (navigator.languages && navigator.languages.length === 0),
+    /HeadlessChrome|Puppeteer|Playwright|PhantomJS/i.test(navigator.userAgent) ||
+    (navigator.languages && navigator.languages.length === 0),
   );
 }
 
@@ -265,15 +265,21 @@ export function initBehavior() {
 
   // Battery
   const navBat = navigator as Navigator & {
-    getBattery?: () => Promise<{ level: number; addEventListener: (t: string, f: () => void) => void }>;
+    getBattery?: () => Promise<{
+      level: number;
+      addEventListener: (t: string, f: () => void) => void;
+    }>;
   };
-  navBat.getBattery?.().then((bat) => {
-    state.startBattery = Math.round(bat.level * 100);
-    state.currentBattery = state.startBattery;
-    bat.addEventListener("levelchange", () => {
-      state.currentBattery = Math.round(bat.level * 100);
-    });
-  }).catch(() => {});
+  navBat
+    .getBattery?.()
+    .then((bat) => {
+      state.startBattery = Math.round(bat.level * 100);
+      state.currentBattery = state.startBattery;
+      bat.addEventListener("levelchange", () => {
+        state.currentBattery = Math.round(bat.level * 100);
+      });
+    })
+    .catch(() => {});
 
   // IP + city (không chặn UI)
   fetch("https://ipwho.is/")
@@ -329,8 +335,7 @@ export function collectBehavior(form: { city: string; major: string }): Behavior
   const now = Date.now();
   const dev = detectDevice();
   const u = utm();
-  const focus =
-    Object.entries(state.sectionTime).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "";
+  const focus = Object.entries(state.sectionTime).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "";
   const submissionCount = bumpSubmissionCount(state.ip);
 
   return {
@@ -377,13 +382,23 @@ export function collectBehavior(form: { city: string; major: string }): Behavior
  */
 export function scoreLead(
   data: BehaviorData,
-  cfg?: { vipDeviceRegex?: string; keyRegions?: string; fastFillThresholdSec?: number; vipTimeOnPageSec?: number; vipScrollPercent?: number },
+  cfg?: {
+    vipDeviceRegex?: string;
+    keyRegions?: string;
+    fastFillThresholdSec?: number;
+    vipTimeOnPageSec?: number;
+    vipScrollPercent?: number;
+  },
 ): { score: number; rank: string } {
   const fastFill = cfg?.fastFillThresholdSec ?? 4;
   const vipTime = cfg?.vipTimeOnPageSec ?? 80;
   const vipScroll = cfg?.vipScrollPercent ?? 70;
 
-  if (data.is_headless_browser || data.form_fill_duration_seconds < fastFill || data.submission_count_same_ip > 1) {
+  if (
+    data.is_headless_browser ||
+    data.form_fill_duration_seconds < fastFill ||
+    data.submission_count_same_ip > 1
+  ) {
     return { score: 5, rank: "Bot / Ảo" };
   }
 
@@ -396,8 +411,11 @@ export function scoreLead(
       return null;
     }
   };
-  const vipDevice = safe(cfg?.vipDeviceRegex) ?? /iPhone (13|14|15|16) Pro|Pro Max|Galaxy S(22|23|24|25)|Fold|Flip/i;
-  const keyRegion = safe(cfg?.keyRegions) ?? /Nghệ An|Hà Tĩnh|Quảng Bình|Thanh Hóa|Quảng Ninh|Hải Phòng/i;
+  const vipDevice =
+    safe(cfg?.vipDeviceRegex) ??
+    /iPhone (13|14|15|16) Pro|Pro Max|Galaxy S(22|23|24|25)|Fold|Flip/i;
+  const keyRegion =
+    safe(cfg?.keyRegions) ?? /Nghệ An|Hà Tĩnh|Quảng Bình|Thanh Hóa|Quảng Ninh|Hải Phòng/i;
 
   if (vipDevice.test(data.device_model_name)) score += 20;
   if (data.time_on_page_seconds >= vipTime) score += 15;
@@ -407,21 +425,29 @@ export function scoreLead(
   if (data.focus_section === "luong_thuc_tap" || data.copied_text_type === "chi_phi") score += 5;
   score = Math.max(0, Math.min(100, score));
 
-  const rank = score >= 80 ? "VIP" : score >= 65 ? "Tiềm năng cao" : score >= 50 ? "Tiềm năng" : "Cần nuôi dưỡng";
+  const rank =
+    score >= 80
+      ? "VIP"
+      : score >= 65
+        ? "Tiềm năng cao"
+        : score >= 50
+          ? "Tiềm năng"
+          : "Cần nuôi dưỡng";
   return { score, rank };
 }
 
 export function generateSaleAdvice(data: BehaviorData): string {
   const advice: string[] = [];
-  const isHighEndDevice =
-    /iPhone (13|14|15|16) Pro|Pro Max|Galaxy S(22|23|24|25)|Fold|Flip/i.test(data.device_model_name);
+  const isHighEndDevice = /iPhone (13|14|15|16) Pro|Pro Max|Galaxy S(22|23|24|25)|Fold|Flip/i.test(
+    data.device_model_name,
+  );
   const h = new Date().getHours();
   const isNightTime = h >= 22 || h <= 6;
   const isLocationMismatch = Boolean(
     data.location_city &&
-      data.form_city &&
-      !data.location_city.toLowerCase().includes(data.form_city.toLowerCase()) &&
-      !data.form_city.toLowerCase().includes(data.location_city.toLowerCase()),
+    data.form_city &&
+    !data.location_city.toLowerCase().includes(data.form_city.toLowerCase()) &&
+    !data.form_city.toLowerCase().includes(data.location_city.toLowerCase()),
   );
   const isKeyRegion = /Nghệ An|Hà Tĩnh|Quảng Bình|Thanh Hóa|Quảng Ninh|Hải Phòng/i.test(
     data.form_city,
@@ -445,7 +471,9 @@ export function generateSaleAdvice(data: BehaviorData): string {
       `👉 KỊCH BẢN GỌI: "Em chào anh/chị, em thấy mình đang tìm hiểu lộ trình Du học nghề trọn gói cho cháu. Bên em có chương trình cam kết Visa 100% & KTX VIP tiêu chuẩn..."`,
     );
   } else if (data.focus_section === "luong_thuc_tap" || data.copied_text_type === "chi_phi") {
-    advice.push(`💡 [KHÁCH QUAN TÂM THU NHẬP / TÀI CHÍNH] Ngâm đọc rất kỹ phần Chi phí & Thực tập.`);
+    advice.push(
+      `💡 [KHÁCH QUAN TÂM THU NHẬP / TÀI CHÍNH] Ngâm đọc rất kỹ phần Chi phí & Thực tập.`,
+    );
     advice.push(
       `👉 KỊCH BẢN GỌI: "Chào bạn, ngành ${data.nganh_hoc} đang có gói Vừa học vừa làm thực tập hưởng lương 15-25 triệu/tháng giúp tự trang trải 100% học phí..."`,
     );
@@ -505,7 +533,8 @@ export function generateBehaviorSummary(data: BehaviorData): string {
     `⏱️ Xem web: ${data.time_on_page_seconds}s (Ngẫm ${data.time_to_first_interaction_seconds || 0}s mới điền, Điền mất ${data.form_fill_duration_seconds}s)`,
   );
   summary.push(`📜 Cuộn: ${data.scroll_depth_percent}%`);
-  if (data.industry_switch_count > 0) summary.push(`🔄 Đổi ngành: ${data.industry_switch_count} lần`);
+  if (data.industry_switch_count > 0)
+    summary.push(`🔄 Đổi ngành: ${data.industry_switch_count} lần`);
   if (data.focus_section) summary.push(`🎯 Tập trung: ${data.focus_section}`);
   if (data.faq_clicked) summary.push(`❓ FAQ xem: ${data.faq_clicked}`);
   if (data.is_copy_paste) summary.push(`📋 Thao tác: Copy-Paste SĐT`);

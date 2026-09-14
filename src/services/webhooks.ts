@@ -38,7 +38,12 @@ async function postOne(
       body = t.body;
     } else if (ep.type === "supabase" && supabase.url && supabase.key) {
       endpoint = `${supabase.url.replace(/\/$/, "")}/rest/v1/${ep.url.replace(/^\//, "") || "leads"}`;
-      headers = { ...headers, apikey: supabase.key, Authorization: `Bearer ${supabase.key}`, Prefer: "return=minimal" };
+      headers = {
+        ...headers,
+        apikey: supabase.key,
+        Authorization: `Bearer ${supabase.key}`,
+        Prefer: "return=minimal",
+      };
       body = [payload];
     }
 
@@ -62,7 +67,13 @@ export async function dispatchLead(
 
   const primary = config.form.webhookUrl?.trim();
   if (primary && primary.startsWith("http") && !primary.includes("REPLACE")) {
-    endpoints.push({ id: "primary", label: "Webhook chính", url: primary, enabled: true, type: "make" });
+    endpoints.push({
+      id: "primary",
+      label: "Webhook chính",
+      url: primary,
+      enabled: true,
+      type: "make",
+    });
   }
   endpoints.push(...config.webhooks.filter((w) => w.enabled && w.url.trim()));
 

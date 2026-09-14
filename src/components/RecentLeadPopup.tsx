@@ -49,9 +49,7 @@ export function RecentLeadPopup() {
     .replaceAll("{mins}", String(item.mins));
 
   const side =
-    fomo.position === "right"
-      ? "right-3 sm:right-6 left-auto"
-      : "left-3 sm:left-6 right-auto";
+    fomo.position === "right" ? "right-3 sm:right-6 left-auto" : "left-3 sm:left-6 right-auto";
 
   return (
     <div

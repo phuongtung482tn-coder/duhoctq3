@@ -35,16 +35,10 @@ export function ScarcityBar({ tone = "light" }: { tone?: "light" | "dark" }) {
   const cell = dark ? "bg-surface-foreground/10" : "bg-primary/10";
 
   return (
-    <div
-      className={`rounded-2xl px-4 py-3 ring-1 ${box}`}
-      aria-live="polite"
-    >
+    <div className={`rounded-2xl px-4 py-3 ring-1 ${box}`} aria-live="polite">
       <p className="text-sm font-bold">
-        Chỉ còn{" "}
-        <span className={accent}>
-          {SLOTS_LEFT.toString().padStart(2, "0")} suất
-        </span>{" "}
-        học bổng miễn 100% KTX tháng này
+        Chỉ còn <span className={accent}>{SLOTS_LEFT.toString().padStart(2, "0")} suất</span> học
+        bổng miễn 100% KTX tháng này
       </p>
       <div className="mt-2 flex items-center gap-2">
         {[
@@ -53,10 +47,7 @@ export function ScarcityBar({ tone = "light" }: { tone?: "light" | "dark" }) {
           { v: m, l: "Phút" },
           { v: s, l: "Giây" },
         ].map((u) => (
-          <div
-            key={u.l}
-            className={`min-w-[3.25rem] rounded-lg px-2 py-1.5 text-center ${cell}`}
-          >
+          <div key={u.l} className={`min-w-[3.25rem] rounded-lg px-2 py-1.5 text-center ${cell}`}>
             <span className={`block text-lg font-black leading-none tabular-nums ${accent}`}>
               {left === null ? "--" : pad(u.v)}
             </span>
