@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 /** Khung modal chung — full-screen trên mobile, canh giữa trên desktop. */
 export function AdminModal({
@@ -13,9 +13,32 @@ export function AdminModal({
   onClose: () => void;
   children: ReactNode;
 }) {
+  // Đóng bằng phím Esc + khóa cuộn nền khi modal mở.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-[95] flex items-end justify-center bg-black/60 p-0 sm:items-center sm:p-4">
-      <div className="flex max-h-[92vh] w-full flex-col rounded-t-2xl bg-white text-neutral-900 shadow-2xl sm:max-w-2xl sm:rounded-2xl dark:bg-neutral-900 dark:text-neutral-100">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      onClick={onClose}
+      className="fixed inset-0 z-[95] flex items-end justify-center bg-black/60 p-0 sm:items-center sm:p-4"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="flex max-h-[92vh] w-full flex-col rounded-t-2xl bg-white text-neutral-900 shadow-2xl sm:max-w-2xl sm:rounded-2xl dark:bg-neutral-900 dark:text-neutral-100"
+      >
         <div className="flex items-start justify-between gap-3 border-b border-neutral-200 px-4 py-3 dark:border-white/10">
           <div>
             <h2 className="text-base font-bold">{title}</h2>
